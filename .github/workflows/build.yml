@@ -16,9 +16,16 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: 8.10
+      - name: Instalar Gradle 8.10
+        run: |
+          curl -fsSL https://services.gradle.org/distributions/gradle-8.10-bin.zip -o gradle.zip
+          unzip -q gradle.zip -d "$HOME"
+          echo "$HOME/gradle-8.10/bin" >> "$GITHUB_PATH"
+
+      - name: Versões
+        run: |
+          java -version
+          gradle --version
 
       - name: Build
         working-directory: sandevistan
